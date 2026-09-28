@@ -45,13 +45,13 @@ export async function generateMetadata(): Promise<Metadata> {
       seo.meta_title || "Mutual Funds & Goal Planning — Arpan Fin Serve";
 
     const description =
-      seo.meta_description ||
+      seo.meta_desc ||
       "Aligning disciplined investment strategies with clear life objectives for long-term wealth creation.";
 
     return {
       title,
       description,
-      keywords: seo.meta_keywords || "",
+      keywords: seo.meta_key || "",
 
       openGraph: {
         title,
@@ -68,9 +68,8 @@ export async function generateMetadata(): Promise<Metadata> {
   } catch {
     return {
       title: "Mutual Funds & Goal Planning — Arpan Fin Serve",
-
       description:
-        "Aligning disciplined investments with clear life objectives for long-term wealth creation.",
+        "Aligning disciplined investment strategies with clear life objectives for long-term wealth creation.",
     };
   }
 }
@@ -132,7 +131,7 @@ export default async function MutualFundsPage() {
   const investmentHighlight = investment?.highlight || "Measurable Wealth";
 
   const investmentParagraphs = Array.isArray(investment?.descriptions)
-    ? investment.descriptions
+    ? investment.descriptions.filter(Boolean)
     : [];
 
   const investmentImage =
@@ -162,9 +161,23 @@ export default async function MutualFundsPage() {
   // Debug
   // ------------------------------------------------
 
+  console.log("========== MUTUAL FUNDS PAGE DATA ==========");
+
   console.log("Banner Data:", banner);
 
   console.log("Investment Data:", investment);
+
+  console.log("Investment Title:", investmentTitle);
+
+  console.log("Investment Highlight:", investmentHighlight);
+
+  console.log("Investment Paragraphs:", investmentParagraphs);
+
+  console.log("Investment Image:", investmentImage);
+
+  console.log("Investment Image Title:", investmentImageTitle);
+
+  console.log("Investment Image Subtitle:", investmentImageSubtitle);
 
   console.log("Life Objectives:", lifeObjectives);
 
@@ -173,6 +186,8 @@ export default async function MutualFundsPage() {
   console.log("Life Objectives Highlight:", lifeObjectivesHighlight);
 
   console.log("Goals:", goals);
+
+  console.log("============================================");
 
   // ------------------------------------------------
   // Render
@@ -205,13 +220,14 @@ export default async function MutualFundsPage() {
       ========================== */}
 
       <ServiceDetailSection
-        tagline={investmentTitle}
-        title={investmentHighlight}
+        tagline="Structured Investment Pathways"
+        title={investmentTitle}
+        highlight={investmentHighlight}
         paragraphs={investmentParagraphs}
         ctaText="Start Your SIP Plan"
         ctaHref="/contact"
         imageSrc={investmentImage}
-        imageAlt="Goal Planning and Mutual Funds"
+        imageAlt={investmentImageTitle || "Goal Planning and Mutual Funds"}
         imageBadgeTagline={investmentImageTitle}
         imageBadgeTitle={investmentImageSubtitle}
       />

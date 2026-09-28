@@ -5,6 +5,7 @@ import { MixedTitle } from "../ui/MixedTitle";
 export interface ServiceDetailSectionProps {
   tagline: string;
   title: string;
+  highlight?: string;
   paragraphs: string[];
   ctaText?: string;
   ctaHref?: string;
@@ -17,6 +18,7 @@ export interface ServiceDetailSectionProps {
 export function ServiceDetailSection({
   tagline,
   title,
+  highlight,
   paragraphs,
   ctaText = "Schedule a Consultation",
   ctaHref = "/contact",
@@ -34,8 +36,10 @@ export function ServiceDetailSection({
             <div className="text-[0.78rem] font-bold tracking-[0.14em] uppercase text-[#d98819] mb-3 flex items-center gap-2 before:content-[''] before:w-[18px] before:h-[2px] before:bg-[#d98819]">
               {tagline}
             </div>
+
             <MixedTitle
               text={title}
+              highlight={highlight}
               className="text-[clamp(2.1rem,3.5vw,2.8rem)] text-[#052636] font-bold font-sans leading-[1.25] mb-6"
             />
 
@@ -64,6 +68,7 @@ export function ServiceDetailSection({
               alt={imageAlt}
               className="w-full h-full object-cover"
             />
+
             <div className="absolute inset-0 bg-gradient-to-t from-[#052636]/85 via-transparent to-transparent" />
 
             {(imageBadgeTagline || imageBadgeTitle) && (
@@ -73,6 +78,7 @@ export function ServiceDetailSection({
                     {imageBadgeTagline}
                   </div>
                 )}
+
                 {imageBadgeTitle && (
                   <div className="font-serif text-[1.45rem] font-bold">
                     {imageBadgeTitle}
